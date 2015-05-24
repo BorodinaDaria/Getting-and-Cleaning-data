@@ -19,7 +19,6 @@ names(subject) = "Subject"
 
 y_activity = join(y, activity, by = "V1")
 y = y_activity[,2]
-names(data[,1]) = "Activity"
 
 data = cbind(y, subject, x)
 
@@ -28,5 +27,5 @@ features_std = grepl(pattern="-std()", features[,2], fixed=TRUE)
 features_mean_std = features_mean | features_std
 data_mean_std = data[, c(TRUE, features_mean_std)]
 
-data_2 <- ddply(data_mean_std, .(Subject, Activity), colwise(mean))
+data_2 <- ddply(data_mean_std, .(Subject, y), colwise(mean))
 write.table(data_2, file="result.txt", row.name=FALSE)
